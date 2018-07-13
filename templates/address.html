@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+     <link rel="stylesheet" href="{% static 'mine/css/address.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="login">
+        <a class="btn btn-default" href="/app/mine"><span class="glyphicon glyphicon-chevron-left"/><span>返回</span> </a>
+        <div style="margin-bottom: 20px">
+              {% for data in datas %}
+                <ul>
+                    <li>收货人：{{ data.name }}</li>
+                    <li>联系电话：{{ data.phone }}</li>
+                    <li>收货地址：{{ data.address_detail }}</li>
+                    <a href="/app/editAddress?id={{ data.id }}"><span>编辑</span></a>
+                    <a href="/app/delAddress?id={{ data.id }}"><span>删除</span></a>
+                    <a><span>设为默认</span></a>
+                </ul>
+            {% endfor %}
+    </div>
+    <div>
+        <a class="btn btn-success" href="/app/addAddress"><span>添加地址</span> </a>
+    </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block extJs %}
+{% endblock %}

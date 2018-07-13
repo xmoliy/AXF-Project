@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'mine/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="login">
+            <h3>用户登录</h3>
+            <a class="btn btn-default" href="mine"><span class="glyphicon glyphicon-chevron-left">返回</span> </a>
+            <br/>
+            <br/>
+            <form method="post" action="login" class="form-horizontal">
+                {% csrf_token %}
+                <div class="input-group">
+                    <span class="input-group-addon">账号</span>
+                    <input class="form-control" title="账号" name="username" placeholder="请输入您的账号">
+                </div>
+                <br/>
+                <div class="input-group">
+                    <span class="input-group-addon">密码</span>
+                    <input class="form-control" type="password" title="密码" name="passwd" placeholder="请输入您的密码">
+                </div>
+                <br/>
+                <div>
+                    {{ msg }}
+                </div>
+                <br>
+                <div class="input-group" style="margin: 0px auto;">
+                    <button class="btn btn-success">登录</button>
+                </div>
+            </form>
+    </div>
+
+
+{% endblock %}
+
+{% block extJs %}
+    <script src="{% static 'mine/js/login.js' %}"></script>
+{% endblock %}

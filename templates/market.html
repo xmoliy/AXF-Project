@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'market/css/market.css' %}">
+
+{% endblock %}
+
+
+
+
+
+{% block content %}
+    <div id="market">
+        <aside>
+            <ul>
+                {% for foodtype in foodtypes %}
+                    <li>
+                        <a href="/app/market/{{ foodtype.typeid }}/0/0">
+                            {% ifequal categoryid foodtype.typeid %}
+                            <span class="yellowSlide"></span>
+                            {% endifequal %}
+                            {{ foodtype.typename }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </aside>
+
+        <section>
+{#            <h3>这是闪购</h3>#}
+            <nav>
+                <ul>
+                    <li>
+                        <span id="allType">全部分类&nbsp;<span class="glyphicon glyphicon-chevron-up"></span></span>
+                    </li>
+                    <li>
+                        <span id="goodsSort">综合排序&nbsp;<span class="glyphicon glyphicon-chevron-up"></span></span>
+                    </li>
+                </ul>
+            </nav>
+
+            {#            显示商品#}
+            <menu>
+                <ul>
+                    {% for goods in goodsList %}
+                        <li>
+                            <a href="#">
+                            <img src="{{ goods.productimg }}">
+                            <article class="shoppingInfo">
+                                <h6>{{ goods.productlongname }}</h6>
+                                <p class="detailTag"><span>精选</span><span>{{ goods.pmdesc }}</span></p>
+                                <span class="unit">{{ goods.specifics }}</span>
+                                <p class="price"><span>￥{{ goods.price }}</span><s><span>￥{{ goods.marketprice }}</span></s></p>
+                            </article>
+                            <div class="clearfix"></div>
+                            </a>
+                            <section>
+{#                                <button ga="{{ goods.productid }}" class="subShopping"></button>#}
+{#                                <span id="{{ goods.productid }}">{{ goods.num|default:0 }}</span>#}
+                                <button ga="{{ goods.productid }}" class="addShopping">+</button>
+                            </section>
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+                <div id="typeSortDiv">
+                    <div id="typeDiv">
+                        {% for childType in childTypes %}
+                            <a href="/app/market/{{ categoryid }}/{{ childType.id }}/0">
+                            {% ifequal childType.id childcid %}
+                                <span class="selected">
+                            {% else %}
+                                <span>
+                            {% endifequal %}
+                        {{ childType.name }}</span></a>
+                        {% endfor %}
+                    </div>
+                    <div id="sortDiv">
+                        <a href="/app/market/{{ categoryid }}/{{ childcid }}/1">
+                        {% if sortid == 1 %}
+                            <span class="selected">
+                        {% else %}
+                            <span>
+                        {% endif %}
+                        最高价格</span></a>
+                        <a href="/app/market/{{ categoryid }}/{{ childcid }}/2">
+                            {% if sortid == 2 %}
+                            <span class="selected">
+                            {% else %}
+                            <span>
+                           {% endif %}
+                            最低价格</span></a>
+                        <a href="/app/market/{{ categoryid }}/{{ childcid }}/3">
+                            {% if sortid == 3 %}
+                            <span class="selected">
+                            {% else %}
+                            <span>
+                            {% endif %}
+                                销量最高</span></a>
+                    </div>
+                </div>
+            </menu>
+        </section>
+
+    </div>
+{% endblock %}
+
+{% block extJs %}
+    <script src="{% static 'market/js/market.js' %}"></script>
+{% endblock %}

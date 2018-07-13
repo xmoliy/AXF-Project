@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'mine/css/receiving.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="login">
+        <a class="btn btn-default" href="/app/mine"><span class="glyphicon glyphicon-chevron-left"/><span>返回</span> </a>
+        <div>
+
+            {% for data in datas %}
+                <ul>
+                    <li>订单编号：{{ data.orderNum }}</li>
+                    <li>订单价钱：{{ data.orderPrice }}</li>
+                    <li>收货地址：{{ data.orderAddress.address_detail }}</li>
+                    <li>订单状态：{{ data.orderStateName }}</li>
+                </ul>
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block extJs %}
+{% endblock %}

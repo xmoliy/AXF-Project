@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extCss %}
+    <link rel="stylesheet" href="{% static 'cart/css/order.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="order">
+        <p>
+            <button id="backBtin" class="btn btn-xs btn-info">返回</button>
+        <div class="clearfix"></div>
+        </p>
+        <h3>我的订单</h3>
+        <div>
+            <section class="orderInfo">
+                <p><strong>订单金额：</strong><span>￥{{ order.orderPrice }}</span></p>
+                <p><strong>收货信息：</strong>
+                <p><strong>{{ order.orderAddress.address_detail }}</strong>
+                <p><strong>{{ order.orderAddress.name }}</strong>
+                <p><strong>{{ order.orderAddress.phone }}</strong>
+            </section>
+            <menu id="orderGoods">
+                <ul>
+                    {% for orderItem in order.ordergoods_set.all %}
+                        <li>
+                            <dl>
+                                <dt>
+                                    <img src="{{ orderItem.goods.productimg }}">
+                                </dt>
+                                <dd><span>{{ orderItem.goods.productname|truncatechars:8 }}</span></dd>
+                            </dl>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </menu>
+        </div>
+        {#    <div class="clearfix"></div>#}
+        <div id="payBtnDiv" title="{{ order.orderNum }}">
+            <button title="0" class="btn btn-success">余款支付</button>
+            <button title="1"  class="btn btn-info">支付宝支付</button>
+            <button title="2" class="btn btn-warning">微信支付</button>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <span id="payMsg">正在支付中...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extJs %}
+    <script src="{% static 'cart/js/order.js' %}"></script>
+{% endblock %}
+
